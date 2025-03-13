@@ -1,7 +1,7 @@
 
 
 import { FaGavel } from "react-icons/fa";
-
+//this is latest auction buzz section SingleCard
 const SingleCard = () => {
   return (
     <div className="max-w-sm mx-auto bg-white rounded-3xl shadow-lg p-5">

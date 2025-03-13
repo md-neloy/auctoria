@@ -1,6 +1,7 @@
 import Cards from "../components/Cards";
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
+import Question from "../components/Question";
 
 const Home = () => {
     return (
@@ -10,6 +11,7 @@ const Home = () => {
             </div>
             <Hero/>
             <Cards/>
+            <Question/>
         </div>
     );
 };
