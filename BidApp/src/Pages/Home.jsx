@@ -1,6 +1,8 @@
 import BiddingMadness from "../components/BiddingMadness";
 import Cards from "../components/Cards";
+import ContactForm from "../components/ContactForm";
 import FeaturedCards from "../components/FeaturedCards";
+import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import MeetCards from "../components/MeetCards";
 import Navbar from "../components/Navbar";
@@ -20,6 +22,8 @@ const Home = () => {
             <MeetCards/>
             <Partners/>
             <BiddingMadness/>
+            <ContactForm/>
+            <Footer/>
         </div>
     );
 };
