@@ -2,7 +2,7 @@ import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-gradient-to-r from-gray-200 to-gray-100 rounded-3xl p-4 shadow-md flex justify-between items-center max-w-7xl mx-auto">
+    <div className="navbar  rounded-3xl p-4  flex justify-between items-center max-w-7xl mx-auto">
       {/* Logo Section */}
       <div className="flex items-center space-x-2">
         <img
