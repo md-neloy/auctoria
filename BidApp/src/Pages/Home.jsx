@@ -1,6 +1,10 @@
+import BiddingMadness from "../components/BiddingMadness";
 import Cards from "../components/Cards";
+import FeaturedCards from "../components/FeaturedCards";
 import Hero from "../components/Hero";
+import MeetCards from "../components/MeetCards";
 import Navbar from "../components/Navbar";
+import Partners from "../components/Partners";
 import Question from "../components/Question";
 
 const Home = () => {
@@ -12,6 +16,10 @@ const Home = () => {
             <Hero/>
             <Cards/>
             <Question/>
+            <FeaturedCards/>
+            <MeetCards/>
+            <Partners/>
+            <BiddingMadness/>
         </div>
     );
 };
