@@ -1,5 +1,3 @@
-
-
 import { FaGavel } from "react-icons/fa";
 //this is latest auction buzz section SingleCard
 const SingleCard = () => {
