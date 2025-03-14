@@ -153,9 +153,9 @@ const Login = () => {
 
         {/* Right Side Login Form */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -600 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 1 }}
           className="w-1/2 p-12 space-y-6 flex flex-col justify-center"
         >
           <h2 className="text-3xl font-bold text-center text-gray-700">
