@@ -1,13 +1,14 @@
-import BiddingMadness from "../components/BiddingMadness";
-import Cards from "../components/Cards";
-import ContactForm from "../components/ContactForm";
-import FeaturedCards from "../components/FeaturedCards";
-import Footer from "../components/Footer";
-import Hero from "../components/Hero";
-import MeetCards from "../components/MeetCards";
-import Navbar from "../components/Navbar";
-import Partners from "../components/Partners";
-import Question from "../components/Question";
+import BiddingMadness from "../components/HomeComponents/BiddingMadness";
+import Cards from "../components/HomeComponents/Cards";
+import ContactForm from "../components/HomeComponents/ContactForm";
+import FeaturedCards from "../components/HomeComponents/FeaturedCards";
+import Footer from "../components/HomeComponents/Footer";
+import Hero from "../components/HomeComponents/Hero";
+import MeetCards from "../components/HomeComponents/MeetCards";
+import Navbar from "../components/HomeComponents/Navbar";
+import Partners from "../components/HomeComponents/Partners";
+import Question from "../components/HomeComponents/Question";
+
 
 const Home = () => {
     return (
