@@ -8,6 +8,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+
     children: [
       {
         path: "",
@@ -22,5 +23,6 @@ export const router = createBrowserRouter([
         element: <Register />,
       },
     ],
+
   },
 ]);
