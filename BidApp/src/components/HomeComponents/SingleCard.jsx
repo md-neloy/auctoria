@@ -1,10 +1,8 @@
-
-
 import { FaGavel } from "react-icons/fa";
 //this is latest auction buzz section SingleCard
 const SingleCard = () => {
   return (
-    <div className="max-w-sm mx-auto bg-white rounded-3xl shadow-lg p-5">
+    <div className="max-w-sm mx-auto bg-white rounded-3xl shadow-lg p-5 border border-green-600">
       {/* Image */}
       <img
         src="https://i.ibb.co.com/GQQ93ZzY/background.png" // Replace with actual image URL
