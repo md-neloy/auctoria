@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
-import auctionImage from "../../assets/auction-image.svg"; // Ensure you have an image in the assets folder
+import auctionImage from "../../assets/auction-image.svg"; 
 const Login = () => {
+  
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="flex w-full max-w-full min-h-screen bg-white px-10 overflow-hidden">
@@ -25,7 +26,7 @@ const Login = () => {
           <h2 className="text-3xl font-bold text-center text-gray-700">
             Welcome To Auction
           </h2>
-          <form className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-600">
                 Email
@@ -34,6 +35,7 @@ const Login = () => {
                 type="email"
                 className="w-full px-4 py-3 mt-1 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
                 placeholder="Enter your email"
+                name="email"
                 required
               />
             </div>
@@ -45,6 +47,7 @@ const Login = () => {
                 type="password"
                 className="w-full px-4 py-3 mt-1 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
                 placeholder="Enter your password"
+                name="password"
                 required
               />
             </div>

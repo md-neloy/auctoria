@@ -2,8 +2,30 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import auctionImage from "../../assets/auction-image.svg"; // Ensure you have an image in the assets folder
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Register = () => {
+
+  const {createUser} = useContext(AuthContext);
+
+  const handleRegister = e =>{
+    e.preventDefault();
+
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log( name,email,password);
+
+
+    createUser(email,password)
+    .then(result =>{
+      console.log(result.user)
+    })
+    .catch(error => {
+      console.log('error',error)
+    })
+  }
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="flex w-full max-w-full min-h-screen bg-white px-10 overflow-hidden">
@@ -26,7 +48,7 @@ const Register = () => {
           <h2 className="text-3xl font-bold text-center text-gray-700">
             Create an Auction Account
           </h2>
-          <form className="space-y-6">
+          <form onSubmit={handleRegister} className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-600">
                 Full Name
@@ -35,6 +57,7 @@ const Register = () => {
                 type="text"
                 className="w-full px-4 py-3 mt-1 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
                 placeholder="Enter your full name"
+                name="name"
                 required
               />
             </div>
@@ -46,6 +69,7 @@ const Register = () => {
                 type="email"
                 className="w-full px-4 py-3 mt-1 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
                 placeholder="Enter your email"
+                name="email"
                 required
               />
             </div>
@@ -57,6 +81,7 @@ const Register = () => {
                 type="password"
                 className="w-full px-4 py-3 mt-1 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
                 placeholder="Create a password"
+                name="password"
                 required
               />
             </div>
