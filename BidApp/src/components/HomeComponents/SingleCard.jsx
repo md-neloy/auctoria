@@ -14,7 +14,7 @@ const SingleCard = () => {
       <h2 className="text-2xl font-bold mt-4">Epic Art Auction This Weekend</h2>
 
       {/* Date */}
-      <p className="text-gray-500 text-sm mt-1">March 10, 2025</p>
+      <p className="text-gray-500 text-sm mt-1">Lorem ipsum dolor sit amet.</p>
 
       {/* Description */}
       <p className="text-gray-700 mt-2">
