@@ -15,9 +15,15 @@ const Navbar = () => {
 
       {/* Nav Links */}
       <div className="hidden md:flex space-x-6 text-gray-800">
-        <a href="#" className="hover:text-blue-500">Home</a>
-        <a href="#" className="hover:text-blue-500">Auctions</a>
-        <a href="#" className="hover:text-blue-500">Contact</a>
+        <a href="#" className="hover:text-blue-500">
+          Home
+        </a>
+        <a href="#" className="hover:text-blue-500">
+          Auctions
+        </a>
+        <a href="#" className="hover:text-blue-500">
+          Contact
+        </a>
       </div>
 
       {/* Contact Icons & Button */}
@@ -25,16 +31,17 @@ const Navbar = () => {
         <FaPhoneAlt className="text-xl cursor-pointer hover:text-blue-500" />
         <FaEnvelope className="text-xl cursor-pointer hover:text-blue-500" />
         <FaMapMarkerAlt className="text-xl cursor-pointer hover:text-blue-500" />
-        <button className="bg-teal-300 text-gray-800 px-4 py-2 rounded-full font-semibold hover:bg-teal-400 transition">
+        <button
+          to
+          className="bg-teal-300 text-gray-800 px-4 py-2 rounded-full font-semibold hover:bg-teal-400 transition"
+        >
           Get Started
         </button>
       </div>
 
       {/* Mobile Menu */}
       <div className="md:hidden">
-        <button className="btn btn-circle btn-ghost">
-          ☰
-        </button>
+        <button className="btn btn-circle btn-ghost">☰</button>
       </div>
     </div>
   );
