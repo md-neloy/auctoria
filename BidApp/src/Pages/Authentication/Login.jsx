@@ -38,7 +38,7 @@ const Login = () => {
               </label>
               <input
                 type="email"
-                className="w-full px-4 py-3 mt-1 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                className="w-full px-4 py-3 mt-1 border rounded-md focus:outline-none focus:ring-1 focus:ring-teal-300 "
                 placeholder="Enter your email"
                 name="email"
                 required
@@ -50,7 +50,7 @@ const Login = () => {
               </label>
               <input
                 type="password"
-                className="w-full px-4 py-3 mt-1 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                className="w-full px-4 py-3 mt-1 border rounded-md focus:outline-none focus:ring-1 focus:ring-teal-300 "
                 placeholder="Enter your password"
                 name="password"
                 required
@@ -58,7 +58,7 @@ const Login = () => {
             </div>
             <button
               type="submit"
-              className="w-full px-4 py-3 text-white bg-blue-500 rounded-md hover:bg-blue-600 text-lg"
+              className="w-full px-4 py-3 text-black bg-teal-300 rounded-md hover:bg-teal-400 text-lg font-semibold"
             >
               Login
             </button>
@@ -68,12 +68,15 @@ const Login = () => {
             <span className="text-gray-500">or</span>
             <hr className="w-1/3 border-gray-300" />
           </div>
-          <button className="w-full flex items-center justify-center gap-2 px-4 py-3 mt-4 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 text-lg">
+          <button className="w-full flex items-center justify-center gap-2 px-4 py-3 mt-4 text-black font-semibold bg-gray-200 rounded-md hover:bg-teal-300 text-lg">
             <FaGoogle className="text-red-500" /> Sign in with Google
           </button>
           <p className="mt-4 text-sm text-center text-gray-600">
             Don't have an account?{" "}
-            <Link to="/signup" className="text-blue-500 hover:underline">
+            <Link
+              to="/signup"
+              className="text-teal-600 hover:underline font-semibold"
+            >
               Sign up
             </Link>
           </p>

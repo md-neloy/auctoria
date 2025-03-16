@@ -7,7 +7,7 @@ const GoToHomeButton = () => {
   return (
     <button
       onClick={() => navigate("/")}
-      className="flex items-center gap-2 px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-all"
+      className="flex items-center gap-2 px-4 py-2 text-black bg-teal-300 rounded-md hover:bg-teal-400 text-lg font-semibold transition-all"
     >
       <AiOutlineHome className="text-lg" />
       Home
