@@ -6,8 +6,28 @@ import auctionImage from "../../assets/auction-image.svg";
 
 
 import GoToHomeButton from "../../components/ShareComponents/GoToHomeButton";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
+  const {signInUser} = useContext(AuthContext);
+   const handleLogin = e => {
+    e.preventDefault();
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email,password);
+
+    signInUser(email,password)
+    .then(result => {
+      console.log(result.user);
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
+
+   }
   
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
