@@ -24,7 +24,7 @@ const SingleCard = () => {
 
       {/* Bid Button */}
       <button className="flex items-center justify-center gap-2 mt-4 bg-teal-300 text-gray-800 px-4 py-2 rounded-full font-semibold hover:bg-teal-400 transition w-full">
-        <FaGavel /> Bid!
+        <FaGavel /> Bid Now!
       </button>
     </div>
   );
