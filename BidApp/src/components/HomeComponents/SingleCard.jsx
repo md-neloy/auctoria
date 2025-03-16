@@ -5,7 +5,7 @@ const SingleCard = () => {
     <div className="max-w-sm mx-auto bg-white rounded-3xl shadow-lg p-5 border border-green-600">
       {/* Image */}
       <img
-        src="https://i.ibb.co.com/GQQ93ZzY/background.png" // Replace with actual image URL
+        src="https://i.ibb.co.com/GQQ93ZzY/background.png" 
         alt="Auction"
         className="w-full h-52 object-cover rounded-2xl"
       />
@@ -14,7 +14,7 @@ const SingleCard = () => {
       <h2 className="text-2xl font-bold mt-4">Epic Art Auction This Weekend</h2>
 
       {/* Date */}
-      <p className="text-gray-500 text-sm mt-1">Lorem ipsum dolor sit amet.</p>
+      <p className="text-gray-500 text-sm mt-1">March 10, 2025</p>
 
       {/* Description */}
       <p className="text-gray-700 mt-2">
@@ -24,7 +24,7 @@ const SingleCard = () => {
 
       {/* Bid Button */}
       <button className="flex items-center justify-center gap-2 mt-4 bg-teal-300 text-gray-800 px-4 py-2 rounded-full font-semibold hover:bg-teal-400 transition w-full">
-        <FaGavel /> Bid Now!
+        <FaGavel /> Bid!
       </button>
     </div>
   );

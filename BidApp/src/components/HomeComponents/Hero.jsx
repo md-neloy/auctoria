@@ -1,4 +1,4 @@
-import React from "react";
+import bannerImage from "../../assets/auction-banner.jpg";
 
 const Hero = () => {
   return (
@@ -6,8 +6,7 @@ const Hero = () => {
       <div
         className="hero min-h-screen"
         style={{
-          backgroundImage:
-            "url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)",
+          backgroundImage: `url(${bannerImage})`,
         }}
       >
         <div className="hero-overlay bg-opacity-60"></div>
@@ -15,7 +14,7 @@ const Hero = () => {
           <div className="max-w-md">
             <h1 className="mb-5 text-5xl font-bold">Bid Big</h1>
             <p className="mb-5 font-bold uppercase">
-            Join the wildest auction platform where every bid counts!
+              Join the wildest auction platform where every bid counts!
             </p>
             <button className="btn bg-teal-300 rounded-xl">Join Now</button>
           </div>
