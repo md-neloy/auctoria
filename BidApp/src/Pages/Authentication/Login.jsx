@@ -1,7 +1,12 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
+
 import auctionImage from "../../assets/auction-image.svg"; 
+
+
+import GoToHomeButton from "../../components/ShareComponents/GoToHomeButton";
+
 const Login = () => {
   
   return (
@@ -72,6 +77,9 @@ const Login = () => {
               Sign up
             </Link>
           </p>
+          <div className="flex flex-col items-center justify-center">
+            <GoToHomeButton />
+          </div>
         </motion.div>
       </div>
     </div>

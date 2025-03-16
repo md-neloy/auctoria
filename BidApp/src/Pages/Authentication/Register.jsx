@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
-import auctionImage from "../../assets/auction-image.svg"; // Ensure you have an image in the assets folder
+import auctionImage from "../../assets/auction-image.svg"; 
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
@@ -27,14 +27,15 @@ const Register = () => {
     })
   }
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="flex w-full max-w-full min-h-screen bg-white px-10 overflow-hidden">
+    
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+      <div className="flex flex-col md:flex-row w-full max-w-4xl bg-white rounded-xl shadow-md overflow-hidden">
         {/* Left Side Image */}
         <div className="w-1/2">
           <img
             src={auctionImage}
             alt="Auction Platform"
-            className="w-full h-full object-center"
+            className="w-full h-full object-cover md:object-center"
           />
         </div>
 
@@ -107,6 +108,7 @@ const Register = () => {
             </Link>
           </p>
         </motion.div>
+        
       </div>
     </div>
   );
