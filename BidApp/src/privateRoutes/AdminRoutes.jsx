@@ -13,6 +13,7 @@ const AdminRoutes = ({ children }) => {
     return children;
   }
 
+  // navigate to the login page
   return <Navigate to={"/login"} state={location.pathname} />;
 };
 
