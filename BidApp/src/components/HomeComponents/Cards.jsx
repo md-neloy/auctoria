@@ -6,7 +6,7 @@ const Cards = () => {
     return (
         <div>
            <h2 className='font-bold text-center text-black text-5xl pt-10 pb-5'> Latest Auction Buzz</h2>
-        <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
+        <div className='lg:w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4'>
             
             <SingleCard/>
             <SingleCard/>

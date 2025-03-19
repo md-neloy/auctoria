@@ -3,6 +3,7 @@ import MainLayout from "../Layout/MainLayout";
 import Home from "../Pages/Home";
 import Login from "../Pages/Authentication/Login";
 import Register from "../Pages/Authentication/Register";
+import AddProduct from "../components/AddProduct";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
         path: "/signup",
         element: <Register />,
       },
+      {
+        path:'/addProduct',
+        element:<AddProduct></AddProduct>
+      }
     ],
   },
 ]);
