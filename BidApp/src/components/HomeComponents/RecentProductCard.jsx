@@ -23,11 +23,11 @@ const RecentProductCard = ({recentProduct}) => {
       src={productImage}
       alt="product" />
   </figure>
-  <div className="card-body ">
-    <h2 className="card-title">{productName}</h2>
+  <div className="card-body gap-y-2 ">
+    <h2 className="card-title font-bold text-2xl text-center">{productName}</h2>
     <p>{description}</p>
-    <p>{startingBid}</p>
-    <p>{auctionStartDate}</p>
+    <p><span className="font-bold">Starting Bid:</span> {startingBid}</p>
+    <p><span className="font-bold">Auction Start Date:</span> {auctionStartDate}</p>
     <div className="card-actions justify-end">
       <button className="btn glass bg-[#6C48C5] hover:text-purple-700 text-blue-400">Details</button>
       <button
