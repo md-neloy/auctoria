@@ -39,8 +39,8 @@ const Navbar = () => {
         <NavLink to="/auctions" className="hover:text-blue-500">
           Auctions
         </NavLink>
-        <NavLink to="/another-link" className="hover:text-blue-500">
-          Another Page
+        <NavLink to="/addProduct" className="hover:text-blue-500">
+          Add Product
         </NavLink>
 
         {user ? (
