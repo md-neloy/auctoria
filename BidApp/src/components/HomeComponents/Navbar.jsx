@@ -36,8 +36,8 @@ const Navbar = () => {
         <NavLink to="/" className="hover:text-blue-500">
           Home
         </NavLink>
-        <NavLink to="/auctions" className="hover:text-blue-500">
-          Auctions
+        <NavLink to="/allAuctions" className="hover:text-blue-500">
+          View All Auctions
         </NavLink>
         <NavLink to="/addProduct" className="hover:text-blue-500">
           Add Product
