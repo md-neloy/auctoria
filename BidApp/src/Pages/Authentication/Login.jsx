@@ -8,6 +8,8 @@ import auctionImage from "../../assets/auction-image.svg";
 import GoToHomeButton from "../../components/ShareComponents/GoToHomeButton";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import SocialLogin from "./SocialLogin";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const {signInUser} = useContext(AuthContext);
@@ -31,6 +33,7 @@ const Login = () => {
         text: "Email Address Already Exist!",
        
       });
+      navigate('/dashboard');
     })
 
 

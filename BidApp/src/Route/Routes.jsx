@@ -7,6 +7,7 @@ import Register from "../Pages/Authentication/Register";
 import Home from "../Pages/HomePage/Home";
 import AllAuctions from "../Pages/AllAuctions";
 import AddProduct from "../Pages/AddProduct";
+import Profile from "../components/HomeComponents/profile";
 
 
 export const router = createBrowserRouter([
@@ -33,7 +34,12 @@ export const router = createBrowserRouter([
       {
         path:'/allAuctions',
         element:<AllAuctions></AllAuctions>
-      }
+      },
+      {
+        path:'/profile',
+        element:<Profile></Profile>
+      },
+
     ],
   },
 ]);
