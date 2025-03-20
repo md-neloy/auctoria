@@ -8,7 +8,6 @@ import auctionImage from "../../assets/auction-image.svg";
 import GoToHomeButton from "../../components/ShareComponents/GoToHomeButton";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import Swal from "sweetalert2";
 
 const Login = () => {
   const {signInUser} = useContext(AuthContext);
@@ -23,28 +22,15 @@ const Login = () => {
     signInUser(email,password)
     .then(result => {
       console.log(result.user);
-      Swal.fire({
-        title: "User Login Successful.",
-        icon: "success",
-        showClass: {
-          popup: `
-            animate__animated
-            animate__fadeInUp
-            animate__faster
-          `
-        },
-        hideClass: {
-          popup: `
-            animate__animated
-            animate__fadeOutDown
-            animate__faster
-          `
-        }
-      });
-      navigate('/');
     })
     .catch(error => {
-      console.log(error)
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Email Address Already Exist!",
+       
+      });
     })
 
 
@@ -109,9 +95,7 @@ const Login = () => {
             <span className="text-gray-500">or</span>
             <hr className="w-1/3 border-gray-300" />
           </div>
-          <button className="w-full flex items-center justify-center gap-2 px-4 py-3 mt-4 text-black font-semibold bg-gray-200 rounded-md hover:bg-teal-300 text-lg">
-            <FaGoogle className="text-red-500" /> Sign in with Google
-          </button>
+          <SocialLogin></SocialLogin>
           <p className="mt-4 text-sm text-center text-gray-600">
             Don't have an account?{" "}
             <Link

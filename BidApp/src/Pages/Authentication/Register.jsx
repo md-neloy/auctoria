@@ -91,6 +91,19 @@ const Register = () => {
                 required
               />
             </div>
+            <div className="form-control">
+            <label  className="block text-sm font-medium text-gray-600">
+              Photo URL
+            </label>
+            <input
+                type="url"
+
+                className="w-full px-4 py-3 mt-1 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                placeholder="Enter your PhotoUrl"
+                name="photo"
+                required
+              />
+          </div>
             <div>
               <label className="block text-sm font-medium text-gray-600">
                 Email
@@ -146,9 +159,7 @@ const Register = () => {
             <span className="text-gray-500">or</span>
             <hr className="w-1/3 border-gray-300" />
           </div>
-          <button className="w-full flex items-center justify-center gap-2 px-4 py-3 mt-4 text-black font-semibold bg-gray-200 rounded-md hover:bg-teal-300 text-lg">
-            <FaGoogle className="text-red-500" /> Sign up with Google
-          </button>
+          <SocialLogin></SocialLogin>
           <p className="mt-4 text-sm text-center text-gray-600">
             Already have an account?{" "}
             <Link
