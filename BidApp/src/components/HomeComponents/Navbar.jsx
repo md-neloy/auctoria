@@ -44,12 +44,12 @@ const Navbar = () => {
         </NavLink>
 
         {user ? (
-          <button
+            <img
+            src={user.photoURL || "/default-profile.png"}
+            alt="Profile"
+            className="h-10 w-10 rounded-full cursor-pointer border-2 border-white"
             onClick={handleSignOut}
-            className="hover:text-blue-500"
-          >
-            Sign Out
-          </button>
+          />
         ) : (
           <div className="flex items-center gap-2">
             <Link to="/login">
