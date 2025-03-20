@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
+
 
  
 import { useContext } from "react";
@@ -8,45 +9,41 @@ import { AuthContext } from "../../providers/AuthProvider";
 
 import auctionImage from "../../assets/auction-image.svg"; 
 import Swal from "sweetalert2";
-import SocialLogin from "./SocialLogin";
 
 
 
 const Register = () => {
+  const navigate = useNavigate();
 
   const {createUser} = useContext(AuthContext);
 
-  const handleRegister = e =>{
+  const handleRegister = e => {
     e.preventDefault();
-
+  
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    const photo = e.target.photo.value;
-    console.log( name,email,password, photo);
-
-
-    createUser(email,password)
-    .then(result =>{
-      console.log(result.user);
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "You are Successfully Registered!",
-        showConfirmButton: false,
-        timer: 1500
+    const photoURL = e.target.photoURL.value; // Corrected the name
+  
+    console.log(name, email, password, photoURL);
+  
+    createUser(email, password, photoURL)
+      .then(result => {
+        console.log(result.user);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "User created successfully.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/login");
+      })
+      .catch(error => {
+        console.log("error", error);
       });
-    })
-    .catch(error => {
-      console.log('error',error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Email Address Already Exist!",
-       
-      });
-    })
-  }
+  };
+  
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="flex w-full max-w-full min-h-screen bg-white px-10 overflow-hidden">
@@ -135,6 +132,18 @@ const Register = () => {
                 required
               />
             </div>
+
+            <div className="form-control">
+          <label className="label">
+            <span className="label-text">Photo URL</span>
+          </label>
+          <input
+            type="text"
+            name="photoURL"
+            placeholder="Photo URL "
+            className="input input-bordered"
+          />
+        </div>
             <button
               type="submit"
 

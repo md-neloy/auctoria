@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 
 import auctionImage from "../../assets/auction-image.svg"; 
@@ -8,11 +8,10 @@ import auctionImage from "../../assets/auction-image.svg";
 import GoToHomeButton from "../../components/ShareComponents/GoToHomeButton";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import SocialLogin from "./SocialLogin";
-import Swal from "sweetalert2";
 
 const Login = () => {
   const {signInUser} = useContext(AuthContext);
+  const navigate = useNavigate();
    const handleLogin = e => {
     e.preventDefault();
 
@@ -23,13 +22,6 @@ const Login = () => {
     signInUser(email,password)
     .then(result => {
       console.log(result.user);
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "You are Successfully Signed In!",
-        showConfirmButton: false,
-        timer: 1500
-      });
     })
     .catch(error => {
       console.log(error);
