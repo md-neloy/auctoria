@@ -15,7 +15,7 @@ const Stats = () => {
         <FaUsers className="text-5xl text-teal-300" />
         <h2 className="text-4xl font-bold text-teal-300">600</h2>
         <p className="text-lg font-semibold text-gray-800">Happy Bidders</p>
-        <p className="text-lg font-semibold text-gray-800">Happy Bidders</p>
+        <p className="text-lg font-semibold text-gray-800">Happy</p>
       </div>
 
       {/* Auctions Live */}
