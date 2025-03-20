@@ -22,7 +22,7 @@ const AllAuctions = () => {
 
     return (
         <div>
-            <h2 className="text-center text-3xl text-purple-400 font-semibold my-5">All Auctions</h2>
+            <h2 className="text-3xl font-bold text-center my-5">All Auctions</h2>
             <div >
                 {
                     allAuctions.map(auction => <AllAuctionCard key={auction._id} auction={auction}></AllAuctionCard>)
