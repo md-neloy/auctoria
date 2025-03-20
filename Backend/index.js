@@ -12,9 +12,10 @@ app.use(express.json());
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ogyvr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 
+// console.log("DB_PASS:", process.env.DB_PASS); 
+const uri = `mongodb+srv://auctoria:${process.env.DB_PASS}@cluster0.t199j.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -27,12 +28,58 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    // await client.connect();
+    await client.connect();
     // Send a ping to confirm a successful connection
-    // await client.db("admin").command({ ping: 1 });
+    await client.db("admin").command({ ping: 1 });
     console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
+      "Pinged your deployment. You successfully connected to new MongoDB!"
     );
+
+    const productsCollection = client.db('Auctoria').collection('addProducts');
+
+    app.get('/addProducts', async (req, res) => {
+      const cursor = productsCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+  });
+
+  app.get('/recentProducts', async (req, res) => {
+    try {
+     
+      const cursor = productsCollection.find().sort({ _id: -1 }).limit(4); 
+      const result = await cursor.toArray();
+      res.send(result);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ error: "Failed to fetch recent blogs" });
+    }
+  });
+  
+  app.post('/addProducts', async (req, res) => {
+      const productData = req.body;  // Get the product data from the request body
+  
+      try {
+          // Convert startTime to a Date object
+          if (productData.auctionStartDate) {
+              const startTime = new Date(productData.auctionStartDate);
+  
+              // Add 7 days (or your desired duration) to startTime for endTime
+              const auctionEndTime = new Date(startTime);
+              auctionEndTime.setDate(auctionEndTime.getDate() + 7); // Adding 7 days
+  
+              // Update productData with calculated endTime
+              productData.auctionEndTime = auctionEndTime.toISOString(); // Convert to string format
+          }
+  
+          // Insert the updated product data into MongoDB
+          const result = await productsCollection.insertOne(productData);
+          res.status(200).json(result);
+      } catch (err) {
+          res.status(500).json({ message: "Error adding product", error: err });
+      }
+  });
+  
+
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
@@ -42,7 +89,7 @@ run().catch(console.dir);
 
 
 app.get("/", async (req, res) => {
-  res.send("Agro is running");
+  res.send("Auctoria is Waiting for an exclusive bid");
 });
 app.listen(port, () => {
   console.log(`server is running on port: ${port}`);
