@@ -1,5 +1,5 @@
 import BiddingMadness from "../../components/HomeComponents/BiddingMadness";
-import Cards from "../../components/HomeComponents/Cards";
+
 import ContactForm from "../../components/HomeComponents/ContactForm";
 import FeaturedCards from "../../components/HomeComponents/FeaturedCards";
 import Footer from "../../components/HomeComponents/Footer";
@@ -8,6 +8,7 @@ import MeetCards from "../../components/HomeComponents/MeetCards";
 import Navbar from "../../components/HomeComponents/Navbar";
 import Partners from "../../components/HomeComponents/Partners";
 import Question from "../../components/HomeComponents/Question";
+import LatestAuctions from "../../components/HomeComponents/latestAuctions";
 
 const Home = () => {
   return (
@@ -16,7 +17,7 @@ const Home = () => {
         <Navbar />
       </div>
       <Hero />
-      <Cards />
+  <LatestAuctions></LatestAuctions>
       <Question />
       <FeaturedCards />
       <MeetCards />
