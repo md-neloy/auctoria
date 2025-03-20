@@ -9,6 +9,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 
 import auctionImage from "../../assets/auction-image.svg"; 
 import Swal from "sweetalert2";
+import SocialLogin from "./SocialLogin";
 
 
 
@@ -91,19 +92,7 @@ const Register = () => {
                 required
               />
             </div>
-            <div className="form-control">
-            <label  className="block text-sm font-medium text-gray-600">
-              Photo URL
-            </label>
-            <input
-                type="url"
-
-                className="w-full px-4 py-3 mt-1 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-                placeholder="Enter your PhotoUrl"
-                name="photo"
-                required
-              />
-          </div>
+           
             <div>
               <label className="block text-sm font-medium text-gray-600">
                 Email
@@ -134,14 +123,14 @@ const Register = () => {
             </div>
 
             <div className="form-control">
-          <label className="label">
-            <span className="label-text">Photo URL</span>
-          </label>
+            <label  className="block text-sm font-medium text-gray-600">
+              Photo URL
+            </label>
           <input
-            type="text"
+            type="url"
             name="photoURL"
-            placeholder="Photo URL "
-            className="input input-bordered"
+            placeholder="Enter your PhotoUrl"
+            className="w-full px-4 py-3 mt-1 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
           />
         </div>
             <button
