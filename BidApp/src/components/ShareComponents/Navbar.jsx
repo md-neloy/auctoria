@@ -45,7 +45,18 @@ const Navbar = () => {
           Add Product
         </NavLink>
 
+        {user && (
+          <NavLink to="/dashboard" className="hover:text-blue-500">
+            Dashboard
+          </NavLink>
+        )}
+
         {user ? (
+<<<<<<< HEAD:BidApp/src/components/ShareComponents/Navbar.jsx
+          <button onClick={handleSignOut} className="hover:text-blue-500">
+            Sign Out
+          </button>
+=======
           <div className="relative">
             <img
               src={user.photoURL || "/default-profile.png"}
@@ -70,6 +81,7 @@ const Navbar = () => {
               </div>
             )}
           </div>
+>>>>>>> ef2d09f88561956a1f7b61d5c9ace05d32610d91:BidApp/src/components/HomeComponents/Navbar.jsx
         ) : (
           <div className="flex items-center gap-2">
             <Link to="/login">
@@ -84,9 +96,18 @@ const Navbar = () => {
 
       {/* Contact Icons & Button */}
       <div className="hidden md:flex items-center space-x-4">
-        <FaPhoneAlt aria-label="Phone" className="text-xl cursor-pointer hover:text-blue-500" />
-        <FaEnvelope aria-label="Email" className="text-xl cursor-pointer hover:text-blue-500" />
-        <FaMapMarkerAlt aria-label="Location" className="text-xl cursor-pointer hover:text-blue-500" />
+        <FaPhoneAlt
+          aria-label="Phone"
+          className="text-xl cursor-pointer hover:text-blue-500"
+        />
+        <FaEnvelope
+          aria-label="Email"
+          className="text-xl cursor-pointer hover:text-blue-500"
+        />
+        <FaMapMarkerAlt
+          aria-label="Location"
+          className="text-xl cursor-pointer hover:text-blue-500"
+        />
         <Link to="/get-started">
           <button className="bg-teal-300 text-gray-800 px-4 py-2 rounded-full font-semibold hover:bg-teal-400 transition">
             Get Started
