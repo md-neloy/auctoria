@@ -5,6 +5,9 @@ import Register from "../Pages/Authentication/Register";
 import Home from "../Pages/HomePage/Home";
 import PrivateRoutes from "../privateRoutes/PrivateRoutes";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import AddProduct from "../Pages/AddProduct";
+import AllAuctionCard from "../Pages/HomePage/AllAuctionCard";
+import AllAuctions from "../Pages/AllAuctions";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +26,14 @@ export const router = createBrowserRouter([
         path: "/signup",
         element: <Register />,
       },
+      {
+        path:"/addProduct",
+        element:<AddProduct></AddProduct>
+      },
+      {
+        path:"allAuctions",
+        element:<AllAuctions></AllAuctions>
+      }
     ],
   },
   {
