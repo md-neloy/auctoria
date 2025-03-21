@@ -1,5 +1,4 @@
-
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -7,7 +6,6 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleSignOut = () => {
     signOutUser()
@@ -26,7 +24,7 @@ const Navbar = () => {
       {/* Logo Section */}
       <div className="flex items-center space-x-2">
         <img
-          src="https://i.ibb.co/Js9CG21/361076432-c6ae963c-9e4b-48c4-9bda-f1b54e9f5bf4.jpg"
+          src="https://i.ibb.co/Js9CG21/361076432-c6ae963c-9e4b-48c4-9bda-f1b54e9f5bf4.jpg" // Replace with your logo
           alt="Logo"
           className="rounded-full w-10 h-10 object-cover"
         />
@@ -38,11 +36,11 @@ const Navbar = () => {
         <NavLink to="/" className="hover:text-blue-500">
           Home
         </NavLink>
-        <NavLink to="/allAuctions" className="hover:text-blue-500">
-          View All Auctions
+        <NavLink to="/auctions" className="hover:text-blue-500">
+          Auctions
         </NavLink>
-        <NavLink to="/addProduct" className="hover:text-blue-500">
-          Add Product
+        <NavLink to="/another-link" className="hover:text-blue-500">
+          Another Page
         </NavLink>
 
         {user && (
@@ -52,36 +50,9 @@ const Navbar = () => {
         )}
 
         {user ? (
-<<<<<<< HEAD:BidApp/src/components/ShareComponents/Navbar.jsx
           <button onClick={handleSignOut} className="hover:text-blue-500">
             Sign Out
           </button>
-=======
-          <div className="relative">
-            <img
-              src={user.photoURL || "/default-profile.png"}
-              alt="Profile"
-              className="h-10 w-10 rounded-full cursor-pointer border-2 border-white"
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-            />
-            {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2 z-50">
-                <Link to="/dashboard" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                  Dashboard
-                </Link>
-                <Link to="/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                  Profile
-                </Link>
-                <button
-                  onClick={handleSignOut}
-                  className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
-                >
-                  Logout
-                </button>
-              </div>
-            )}
-          </div>
->>>>>>> ef2d09f88561956a1f7b61d5c9ace05d32610d91:BidApp/src/components/HomeComponents/Navbar.jsx
         ) : (
           <div className="flex items-center gap-2">
             <Link to="/login">
@@ -124,4 +95,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
