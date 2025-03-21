@@ -9,6 +9,7 @@ import Navbar from "../../components/HomeComponents/Navbar";
 import Partners from "../../components/HomeComponents/Partners";
 import Question from "../../components/HomeComponents/Question";
 import LatestAuctions from "../../components/HomeComponents/latestAuctions";
+import FeaturedProducts from "./FeaturedProducts";
 
 const Home = () => {
   return (
@@ -19,7 +20,7 @@ const Home = () => {
       <Hero />
   <LatestAuctions></LatestAuctions>
       <Question />
-      <FeaturedCards />
+      <FeaturedProducts></FeaturedProducts>
       <MeetCards />
       <Partners />
       <BiddingMadness />
