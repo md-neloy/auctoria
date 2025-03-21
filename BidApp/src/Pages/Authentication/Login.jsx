@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 
 import auctionImage from "../../assets/auction-image.svg"; 
@@ -8,9 +8,12 @@ import auctionImage from "../../assets/auction-image.svg";
 import GoToHomeButton from "../../components/ShareComponents/GoToHomeButton";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import SocialLogin from "./SocialLogin";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const {signInUser} = useContext(AuthContext);
+  const navigate = useNavigate();
    const handleLogin = e => {
     e.preventDefault();
 
@@ -23,7 +26,14 @@ const Login = () => {
       console.log(result.user);
     })
     .catch(error => {
-      console.log(error)
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Email Address Already Exist!",
+       
+      });
+      navigate('/dashboard');
     })
 
 
@@ -88,9 +98,7 @@ const Login = () => {
             <span className="text-gray-500">or</span>
             <hr className="w-1/3 border-gray-300" />
           </div>
-          <button className="w-full flex items-center justify-center gap-2 px-4 py-3 mt-4 text-black font-semibold bg-gray-200 rounded-md hover:bg-teal-300 text-lg">
-            <FaGoogle className="text-red-500" /> Sign in with Google
-          </button>
+          <SocialLogin></SocialLogin>
           <p className="mt-4 text-sm text-center text-gray-600">
             Don't have an account?{" "}
             <Link
