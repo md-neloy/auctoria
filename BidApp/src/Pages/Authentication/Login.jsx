@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 
-import auctionImage from "../../assets/auction-image.svg"; 
-
+import auctionImage from "../../assets/auction-image.svg";
 
 import GoToHomeButton from "../../components/ShareComponents/GoToHomeButton";
 import { useContext } from "react";
@@ -12,38 +11,30 @@ import SocialLogin from "./SocialLogin";
 import Swal from "sweetalert2";
 
 const Login = () => {
-  const {signInUser} = useContext(AuthContext);
-   const handleLogin = e => {
+  const { signInUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleLogin = (e) => {
     e.preventDefault();
 
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email,password);
+    console.log(email, password);
 
-    signInUser(email,password)
-    .then(result => {
-      console.log(result.user);
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "You are Successfully Signed In!",
-        showConfirmButton: false,
-        timer: 1500
+    signInUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Email Address Already Exist!",
+        });
+        navigate("/dashboard");
       });
-    })
-    .catch(error => {
-      console.log(error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Email Address Already Exist!",
-       
-      });
-    })
+  };
 
-
-   }
-  
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="flex w-full max-w-full min-h-screen bg-white px-10 overflow-hidden">

@@ -3,7 +3,8 @@ import { AuthContext } from "../providers/AuthProvider";
 import Swal from 'sweetalert2';
 
 const AddProduct = () => {
-  const { user } = useContext(AuthContext);
+ 
+ const { user } = useContext(AuthContext);
 
   const handleSubmitProduct = (e) => {
     e.preventDefault();
@@ -143,5 +144,4 @@ const AddProduct = () => {
     </div>
   );
 };
-
 export default AddProduct;

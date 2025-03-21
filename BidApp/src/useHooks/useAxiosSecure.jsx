@@ -1,8 +1,9 @@
 import axios from "axios";
 import useContextHooks from "./useContextHooks";
+import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5050",
+  baseURL: "http://localhost:5000",
 });
 const useAxiosSecure = () => {
   const naviate = useNavigate();
@@ -17,6 +18,7 @@ const useAxiosSecure = () => {
       return config;
     },
     (err) => {
+      console.log("error from here");
       return Promise.reject(err);
     }
   );
