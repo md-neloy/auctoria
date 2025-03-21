@@ -4,6 +4,7 @@ import useContextHooks from "../useHooks/useContextHooks";
 const PrivateRoutes = ({ children }) => {
   const { user, loading } = useContextHooks();
   const location = useLocation();
+
   if (loading) {
     return <span className="loading loading-bars loading-xl"></span>;
   }
