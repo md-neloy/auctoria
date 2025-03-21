@@ -36,42 +36,43 @@ const Navbar = () => {
         <NavLink to="/" className="hover:text-blue-500">
           Home
         </NavLink>
-<<<<<<< HEAD:BidApp/src/components/HomeComponents/Navbar.jsx
 
         
 
         <NavLink to="/addProduct" className="hover:text-blue-500">
           Add Product
-=======
-        <NavLink to="/auctions" className="hover:text-blue-500">
-          Auctions
-        </NavLink>
-        <NavLink to="/another-link" className="hover:text-blue-500">
-          Another Page
->>>>>>> f42b3777fc447b4fc165f79f49b88bc977108cea:BidApp/src/components/ShareComponents/Navbar.jsx
         </NavLink>
         <NavLink to="/allAuctions" className="hover:text-blue-500">
           All Auctions
 
         </NavLink>
 
-        {user && (
-          <NavLink to="/dashboard" className="hover:text-blue-500">
-            Dashboard
-          </NavLink>
-        )}
-
         {user ? (
-          <button onClick={handleSignOut} className="hover:text-blue-500">
-            Sign Out
-          </button>
+            
+            <div className="flex items-center gap-2">
+            <img
+              src={user.photoURL}
+              alt="Profile"
+              className="w-7 h-7 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-full"
+            />
+            <button
+              onClick={handleSignOut}
+              className="btn "
+            >
+              Sign Out
+            </button>
+          </div>
         ) : (
           <div className="flex items-center gap-2">
             <Link to="/login">
-              <button className="hover:text-blue-500">Sign In</button>
+              <button className="hover:text-blue-500">
+                Sign In
+              </button>
             </Link>
             <Link to="/signup">
-              <button className="hover:text-blue-500">Register</button>
+              <button className="hover:text-blue-500">
+                Register
+              </button>
             </Link>
           </div>
         )}
@@ -79,18 +80,9 @@ const Navbar = () => {
 
       {/* Contact Icons & Button */}
       <div className="hidden md:flex items-center space-x-4">
-        <FaPhoneAlt
-          aria-label="Phone"
-          className="text-xl cursor-pointer hover:text-blue-500"
-        />
-        <FaEnvelope
-          aria-label="Email"
-          className="text-xl cursor-pointer hover:text-blue-500"
-        />
-        <FaMapMarkerAlt
-          aria-label="Location"
-          className="text-xl cursor-pointer hover:text-blue-500"
-        />
+        <FaPhoneAlt aria-label="Phone" className="text-xl cursor-pointer hover:text-blue-500" />
+        <FaEnvelope aria-label="Email" className="text-xl cursor-pointer hover:text-blue-500" />
+        <FaMapMarkerAlt aria-label="Location" className="text-xl cursor-pointer hover:text-blue-500" />
         <Link to="/get-started">
           <button className="bg-teal-300 text-gray-800 px-4 py-2 rounded-full font-semibold hover:bg-teal-400 transition">
             Get Started

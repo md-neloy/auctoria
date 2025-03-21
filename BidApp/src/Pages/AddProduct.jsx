@@ -131,7 +131,7 @@ const AddProduct = () => {
           <select name="status" className="input dark:text-black input-bordered w-full" required>
             <option value="Active">Active</option>
             <option value="Upcoming">Upcoming</option>
-            <option value="Completed">Completed</option>
+            <option value="Live">Live</option>
           </select>
         </div>
 
