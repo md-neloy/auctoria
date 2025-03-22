@@ -5,15 +5,14 @@ import Footer from "../components/ShareComponents/Footer";
 
 
 
+
 const MainLayout = () => {
 
     return (
         <div >
             <Navbar></Navbar>
-            <div className="lg:max-w-7xl mx-auto mt-16 ">
             <Outlet/>
-            </div>
-           <Footer></Footer>
+          <Footer></Footer>
         </div>
     );
 

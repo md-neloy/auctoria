@@ -20,7 +20,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar rounded-3xl p-4 flex justify-between items-center max-w-7xl mx-auto">
+   <div className="w-full">
+     <div className="navbar rounded-3xl px-4 flex justify-between items-center max-w-7xl mx-auto">
       {/* Logo Section */}
       <div className="flex items-center space-x-2">
         <img
@@ -95,6 +96,7 @@ const Navbar = () => {
         <button className="btn btn-circle btn-ghost">☰</button>
       </div>
     </div>
+   </div>
   );
 };
 
