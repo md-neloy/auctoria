@@ -1,27 +1,30 @@
-import { useEffect, useState } from "react";
-import AllAuctionCard from "./HomePage/AllAuctionCard";
+import React, { useEffect, useState } from 'react';
+import FeaturedProductCard from './FeaturedProductCard';
 
-const AllAuctions = () => {
-    const [allAuctions, setAllAuctions] = useState([]);
+
+
+const FeaturedProducts = () => {
+    const [featuredAuctions, setFeaturedAuctions] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [category, setCategory] = useState("All");
     const [filteredAuctions, setFilteredAuctions] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/addProducts")
+        fetch("http://localhost:5000/featuredProducts") 
             .then((res) => res.json())
             .then((data) => {
-                setAllAuctions(data);
-                setFilteredAuctions(data); // Initialize filtered list
+                setFeaturedAuctions(data);
+                setFilteredAuctions(data); 
             })
             .catch((error) => {
-                console.error("Error fetching auctions:", error);
+                console.error("Error fetching featured auctions:", error);
             });
     }, []);
+    
 
     useEffect(() => {
-        let results = allAuctions.filter(auction =>
-            auction?.productName?.toLowerCase().includes(searchTerm.toLowerCase()) // ✅ Prevent undefined error
+        let results = featuredAuctions.filter(auction =>
+            auction?.productName?.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
         if (category !== "All") {
@@ -29,26 +32,24 @@ const AllAuctions = () => {
         }
 
         setFilteredAuctions(results);
-    }, [searchTerm, category, allAuctions]);
+    }, [searchTerm, category, featuredAuctions]);
 
     return (
         <div>
-            <h2 className="text-3xl font-bold text-center  mt-10 pt-10 mb-5">All Auctions</h2>
-
-            {/* Search & Filter Section */}
-            <div className="text-center my-5 flex flex-wrap justify-center gap-4">
+            <h2 className="text-5xl text-black mt-20  font-bold text-center mb-4">Featured Products</h2>
+            <div className="text-center mb-5 mt-10 flex  flex-wrap justify-center gap-4">
                 <input
                     type="text"
                     placeholder="Search auctions"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border p-2 rounded"
+                    className="border w-[500px] p-2 rounded "
                 />
 
                 <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="border p-2 rounded"
+                    className="border p-2 w-[250px] rounded"
                 >
                     <option value="All">All</option>
                     <option value="Antiques">Antiques</option>
@@ -60,18 +61,17 @@ const AllAuctions = () => {
                 </select>
             </div>
 
-            {/* Auction List */}
-            <div>
+            <div className="grid grid-cols-1 mt-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-5">
                 {filteredAuctions.length > 0 ? (
                     filteredAuctions.map(auction => (
-                        <AllAuctionCard key={auction._id} auction={auction} />
+                     <FeaturedProductCard key={auction._id} auction={auction}></FeaturedProductCard>
                     ))
                 ) : (
-                    <p className="text-center text-gray-500">No auctions found</p>
+                    <p className="text-center text-gray-500 col-span-full">No auctions found</p>
                 )}
             </div>
         </div>
     );
 };
 
-export default AllAuctions;
+export default FeaturedProducts;

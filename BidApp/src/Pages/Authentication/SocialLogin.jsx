@@ -1,10 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
-
-
-
-
 const SocialLogin = () => {
   const { signInWithGoogle } = useContext(AuthContext);
 

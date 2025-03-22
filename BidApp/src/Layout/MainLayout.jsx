@@ -1,17 +1,22 @@
 import { Outlet } from "react-router-dom";
+
+import Navbar from "../components/HomeComponents/Navbar";
 import Footer from "../components/ShareComponents/Footer";
-import Navbar from "../components/ShareComponents/Navbar";
+
+
+
 
 const MainLayout = () => {
-  return (
-    <div>
-      <div className="fixed top-0 left-0 w-full z-50 bg-slate-200 shadow-md">
-        <Navbar />
-      </div>
-      <Outlet />
-      <Footer />
-    </div>
-  );
-};
 
+    return (
+        <div >
+            <Navbar></Navbar>
+            <Outlet/>
+          <Footer></Footer>
+        </div>
+    );
+
+  
+
+  }
 export default MainLayout;

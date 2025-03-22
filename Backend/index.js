@@ -54,24 +54,43 @@ async function run() {
       res.status(500).send({ error: "Failed to fetch recent blogs" });
     }
   });
+
+  app.get('/featuredProducts', async (req, res) => {
+    try {
+        const cursor = productsCollection
+            .aggregate([
+                { $match: { status: "Active" } }, 
+                { $addFields: { startingBidNum: { $toDouble: "$startingBid" } } }, 
+                { $sort: { startingBidNum: -1 } } 
+            ]);
+
+        const result = await cursor.toArray();
+        res.send(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: "Failed to fetch featured products" });
+    }
+});
+
+
   
   app.post('/addProducts', async (req, res) => {
-      const productData = req.body;  // Get the product data from the request body
+      const productData = req.body; 
   
       try {
-          // Convert startTime to a Date object
+        
           if (productData.auctionStartDate) {
               const startTime = new Date(productData.auctionStartDate);
   
-              // Add 7 days (or your desired duration) to startTime for endTime
+              
               const auctionEndTime = new Date(startTime);
-              auctionEndTime.setDate(auctionEndTime.getDate() + 7); // Adding 7 days
+              auctionEndTime.setDate(auctionEndTime.getDate() + 7); 
   
-              // Update productData with calculated endTime
-              productData.auctionEndTime = auctionEndTime.toISOString(); // Convert to string format
+              
+              productData.auctionEndTime = auctionEndTime.toISOString(); 
           }
   
-          // Insert the updated product data into MongoDB
+         
           const result = await productsCollection.insertOne(productData);
           res.status(200).json(result);
       } catch (err) {

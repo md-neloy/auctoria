@@ -14,10 +14,7 @@ const Question = () => {
             How does the bidding process work?
           </div>
           <div className="collapse-content">
-            {/* <p>
-              Bidding is simple! Just place your bid and watch the excitement
-              unfold!
-            </p> */}
+            
             <p>
               Bidding is simple! Just place your bid and watch the excitement
               unfold!

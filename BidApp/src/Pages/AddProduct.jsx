@@ -68,6 +68,8 @@ const AddProduct = () => {
             <option value="Jewelry">Jewelry</option>
             <option value="Watches">Watches</option>
             <option value="Art">Art</option>
+            <option value="Luxury Bags">Luxury Bags</option>
+            <option value="Cars">Cars</option>
           </select>
         </div>
 
@@ -131,7 +133,7 @@ const AddProduct = () => {
           <select name="status" className="input dark:text-black input-bordered w-full" required>
             <option value="Active">Active</option>
             <option value="Upcoming">Upcoming</option>
-            <option value="Completed">Completed</option>
+            <option value="Live">Live</option>
           </select>
         </div>
 

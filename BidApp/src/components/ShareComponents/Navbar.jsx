@@ -140,11 +140,11 @@ const Navbar = () => {
         <NavLink to="/" className="hover:text-blue-500">
           Home
         </NavLink>
-        <NavLink to="/allAuctions" className="hover:text-blue-500">
-          View All Auctions
+        <NavLink to="/auctions" className="hover:text-blue-500">
+          Auctions
         </NavLink>
-        <NavLink to="/addProduct" className="hover:text-blue-500">
-          Add Product
+        <NavLink to="/another-link" className="hover:text-blue-500">
+          Another Page
         </NavLink>
         {user && (
           <NavLink to="/dashboard" className="hover:text-blue-500">
