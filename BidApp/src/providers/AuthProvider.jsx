@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { createContext, useState, useEffect } from "react";
 import { auth } from "../firebase/firebase.init";
+import useAxiosPublic from "../useHooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 
@@ -16,13 +17,35 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
+  const axiosPublic = useAxiosPublic()
 
   // Listen to auth state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log(currentUser);
       setUser(currentUser); // Update user state when authentication state changes
-      setLoading(false); // Stop loading after checking auth state
+      //setLoading(false); // Stop loading after checking auth state
+      if(currentUser){
+        const userInfo = {email:currentUser?.email}
+        axiosPublic.post('/jwt', userInfo)
+        .then(res =>{
+            if(res.data.token){
+                localStorage.setItem('access-token', res.data.token)
+                setUser(currentUser);
+                setLoading(false)
+            }
+            console.log(res.data);
+        }).catch(err =>{
+            console.log(err);
+        })
+
+    }
+    else{
+        //todo
+        localStorage.removeItem("access-token")
+        setUser(currentUser);
+        setLoading(false);
+    }
     });
 
     // Cleanup the listener when component unmounts

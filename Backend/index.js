@@ -1,4 +1,5 @@
 require("dotenv").config();
+var jwt = require("jsonwebtoken");
 const express = require("express");
 const cors = require("cors");
 const port = process.env.PORT || 5000;
@@ -36,6 +37,32 @@ async function run() {
     );
 
     const productsCollection = client.db('Auctoria').collection('addProducts');
+
+        //jwt apis rumman's code starts here
+        app.post("/jwt", async (req, res) => {
+          const user = req.body;
+          const token = jwt.sign(user, process.env.JWT_ACCESS_TOKEN, {
+            expiresIn: "5h",
+          });
+          res.send({ token });
+        });
+        //middleware
+        const verifyToken = (req, res, next) => {
+          // console.log("insideVeriyFy", req.headers.authorization);
+          if (!req.headers.authorization) {
+            return res.status(401).send({ message: "forbidden access" });
+          }
+          const token = req.headers.authorization.split(" ")[1];
+          jwt.verify(token, process.env.JWT_ACCESS_TOKEN, (err, decoded) => {
+            if (err) {
+              return res.status(401).send({ message: "forbidden access" });
+            }
+            req.decoded = decoded;
+            next();
+          });
+        };
+
+        //jwt apis rumman's code ends here
 
     app.get('/addProducts', async (req, res) => {
       const cursor = productsCollection.find();
