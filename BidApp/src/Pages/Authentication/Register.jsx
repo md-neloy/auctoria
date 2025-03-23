@@ -16,35 +16,51 @@ import SocialLogin from "./SocialLogin";
 const Register = () => {
   const navigate = useNavigate();
 
-  const {createUser} = useContext(AuthContext);
+  const {createUser,updateUserProfile} = useContext(AuthContext);
 
-  const handleRegister = e => {
+  const handleRegister = (e) => {
     e.preventDefault();
-  
+
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     const photoURL = e.target.photoURL.value; // Corrected the name
-  
+
     console.log(name, email, password, photoURL);
-  
-    createUser(email, password, photoURL)
-      .then(result => {
-        console.log(result.user);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "User created successfully.",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        navigate("/login");
+
+    createUser(email, password)
+      .then((result) => {
+        const loggedUser = result.user;
+        updateUserProfile(name, photoURL)
+          .then(() => {
+            console.log("User profile updated successfully");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "User created successfully.",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate("/login");
+          })
+          .catch((error) => {
+            console.error("Error updating user profile:", error);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Failed to update user profile!",
+            });
+          });
       })
-      .catch(error => {
-        console.log("error", error);
+      .catch((error) => {
+        console.error("Error creating user:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Failed to create user!",
+        });
       });
   };
-  
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="flex w-full max-w-full min-h-screen bg-white px-10 overflow-hidden">
