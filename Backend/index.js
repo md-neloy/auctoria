@@ -36,7 +36,11 @@ async function run() {
       "Pinged your deployment. You successfully connected to new MongoDB!"
     );
 
+
     const productsCollection = client.db('Auctoria').collection('addProducts');
+    const usersCollection = client.db("Auctoria").collection("users");
+
+
 
         //jwt apis rumman's code starts here
         app.post("/jwt", async (req, res) => {
@@ -99,6 +103,16 @@ async function run() {
     }
 });
 
+app.get("/users", async (req, res) => {
+  try {
+    const users = await usersCollection.find().toArray();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching users", error });
+  }
+});
+
+
 
   
   app.post('/addProducts', async (req, res) => {
@@ -124,6 +138,27 @@ async function run() {
           res.status(500).json({ message: "Error adding product", error: err });
       }
   });
+
+  app.post("/users", async (req, res) => {
+    try {
+      const { name, email, photoURL, uid } = req.body;
+  
+      // Check if the user already exists
+      const existingUser = await usersCollection.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ message: "User already exists" });
+      }
+  
+      // Save the new user
+      const newUser = { name, email, photoURL, uid, createdAt: new Date() };
+      const result = await usersCollection.insertOne(newUser);
+  
+      res.status(201).json({ message: "User registered successfully", user: result });
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error });
+    }
+  });
+  
   
 
   } finally {
