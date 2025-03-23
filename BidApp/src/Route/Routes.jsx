@@ -9,6 +9,7 @@ import AddProduct from "../Pages/AddProduct";
 
 import PrivateRoutes from "../privateRoutes/PrivateRoutes";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import AuctionChart from "../Pages/Dashboard/AuctionChart";
 
 
 
@@ -52,5 +53,11 @@ export const router = createBrowserRouter([
         <Dashboard />
       </PrivateRoutes>
     ),
+    children:[
+      {
+        path:'auctionChart',
+        element:<AuctionChart></AuctionChart>
+      }
+    ]
   },
 ]);
