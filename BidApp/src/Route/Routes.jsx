@@ -9,7 +9,11 @@ import AddProduct from "../Pages/AddProduct";
 
 import PrivateRoutes from "../privateRoutes/PrivateRoutes";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+
 import AuctionChart from "../Pages/Dashboard/AuctionChart";
+
+import Profile from "../components/HomeComponents/profile";
+
 
 
 
@@ -31,19 +35,18 @@ export const router = createBrowserRouter([
         path: "/signup",
         element: <Register />,
       },
-
-      
       {
-       path:"/addProduct",
-        element:<AddProduct></AddProduct>
+        path: "/profile",
+        element: <Profile></Profile>,
       },
       {
-        path:"allAuctions",
-
-        element:<AllAuctions></AllAuctions>
+        path: "/allAuctions",
+        element: <AllAuctions></AllAuctions>,
       },
-      
-
+      {
+        path: "/addProduct",
+        element:<AddProduct></AddProduct> ,
+      },
     ],
   },
   {
