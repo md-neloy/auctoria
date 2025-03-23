@@ -23,7 +23,7 @@ const Dashboard = () => {
       
        <div>
          <h2 className="text-center my-5 font-bold text-xl dark:text-[#A294F9] text-[#4635B1]">Admins Dashboard</h2>
-         <li><NavLink to="/dashboard/users"><FaUsers />Manage Users</NavLink></li>
+         <li><NavLink to="/dashboard/manageUsers"><FaUsers />Manage Users</NavLink></li>
          
        </div>
 

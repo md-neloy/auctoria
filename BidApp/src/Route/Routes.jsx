@@ -13,6 +13,7 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import AuctionChart from "../Pages/Dashboard/AuctionChart";
 
 import Profile from "../components/HomeComponents/profile";
+import ManageUsers from "../Pages/Dashboard/ManageUsers";
 
 
 
@@ -60,6 +61,10 @@ export const router = createBrowserRouter([
       {
         path:'auctionChart',
         element:<AuctionChart></AuctionChart>
+      },
+      {
+        path:'manageUsers',
+        element:<ManageUsers></ManageUsers>
       }
     ]
   },
