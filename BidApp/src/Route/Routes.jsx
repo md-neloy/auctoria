@@ -14,10 +14,7 @@ import AuctionChart from "../Pages/Dashboard/AuctionChart";
 
 import Profile from "../components/HomeComponents/profile";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
-
-
-
-
+import Bid from "../Pages/BidTask/Bid";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +45,10 @@ export const router = createBrowserRouter([
         path: "/addProduct",
         element: <AddProduct></AddProduct>,
       },
+      {
+        path: "/bid/:id",
+        element: <Bid />,
+      },
     ],
   },
   {
@@ -57,15 +58,15 @@ export const router = createBrowserRouter([
         <Dashboard />
       </PrivateRoutes>
     ),
-    children:[
+    children: [
       {
-        path:'auctionChart',
-        element:<AuctionChart></AuctionChart>
+        path: "auctionChart",
+        element: <AuctionChart></AuctionChart>,
       },
       {
-        path:'manageUsers',
-        element:<ManageUsers></ManageUsers>
-      }
-    ]
+        path: "manageUsers",
+        element: <ManageUsers></ManageUsers>,
+      },
+    ],
   },
 ]);
