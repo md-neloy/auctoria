@@ -62,7 +62,7 @@ const AllAuctions = () => {
       </div>
 
       {/* Auction List */}
-      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 mx-3 lg:mx-0">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 w-[1024px] mx-auto">
         {filteredAuctions.length > 0 ? (
           filteredAuctions.map((auction) => (
             <AllAuctionCard key={auction._id} auction={auction} />
