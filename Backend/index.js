@@ -1,4 +1,5 @@
 require("dotenv").config();
+var jwt = require("jsonwebtoken");
 const express = require("express");
 const cors = require("cors");
 const port = process.env.PORT || 5000;
@@ -35,7 +36,37 @@ async function run() {
       "Pinged your deployment. You successfully connected to new MongoDB!"
     );
 
+
     const productsCollection = client.db('Auctoria').collection('addProducts');
+    const usersCollection = client.db("Auctoria").collection("users");
+
+
+
+        //jwt apis rumman's code starts here
+        app.post("/jwt", async (req, res) => {
+          const user = req.body;
+          const token = jwt.sign(user, process.env.JWT_ACCESS_TOKEN, {
+            expiresIn: "5h",
+          });
+          res.send({ token });
+        });
+        //middleware
+        const verifyToken = (req, res, next) => {
+          // console.log("insideVeriyFy", req.headers.authorization);
+          if (!req.headers.authorization) {
+            return res.status(401).send({ message: "forbidden access" });
+          }
+          const token = req.headers.authorization.split(" ")[1];
+          jwt.verify(token, process.env.JWT_ACCESS_TOKEN, (err, decoded) => {
+            if (err) {
+              return res.status(401).send({ message: "forbidden access" });
+            }
+            req.decoded = decoded;
+            next();
+          });
+        };
+
+        //jwt apis rumman's code ends here
 
     app.get('/addProducts', async (req, res) => {
       const cursor = productsCollection.find();
@@ -72,6 +103,16 @@ async function run() {
     }
 });
 
+app.get("/users", async (req, res) => {
+  try {
+    const users = await usersCollection.find().toArray();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching users", error });
+  }
+});
+
+
 
   
   app.post('/addProducts', async (req, res) => {
@@ -97,6 +138,27 @@ async function run() {
           res.status(500).json({ message: "Error adding product", error: err });
       }
   });
+
+  app.post("/users", async (req, res) => {
+    try {
+      const { name, email, photoURL, uid } = req.body;
+  
+      // Check if the user already exists
+      const existingUser = await usersCollection.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ message: "User already exists" });
+      }
+  
+      // Save the new user
+      const newUser = { name, email, photoURL, uid, createdAt: new Date() };
+      const result = await usersCollection.insertOne(newUser);
+  
+      res.status(201).json({ message: "User registered successfully", user: result });
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error });
+    }
+  });
+  
   
 
   } finally {

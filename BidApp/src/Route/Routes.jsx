@@ -9,9 +9,11 @@ import AddProduct from "../Pages/AddProduct";
 
 import PrivateRoutes from "../privateRoutes/PrivateRoutes";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+
+import AuctionChart from "../Pages/Dashboard/AuctionChart";
+
 import Profile from "../components/HomeComponents/profile";
-
-
+import ManageUsers from "../Pages/Dashboard/ManageUsers";
 
 
 
@@ -50,9 +52,20 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <PrivateRoutes><Dashboard /></PrivateRoutes>,
- 
-
-
+    element: (
+      <PrivateRoutes>
+        <Dashboard />
+      </PrivateRoutes>
+    ),
+    children:[
+      {
+        path:'auctionChart',
+        element:<AuctionChart></AuctionChart>
+      },
+      {
+        path:'manageUsers',
+        element:<ManageUsers></ManageUsers>
+      }
+    ]
   },
 ]);
