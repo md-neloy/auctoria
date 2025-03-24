@@ -66,38 +66,11 @@ async function run() {
 
     const productsCollection = client.db("Auctoria").collection("addProducts");
     const bidHistroyCollection = client.db("Auctoria").collection("bids");
+    const usersCollection = client.db("Auctoria").collection("users");
 
-    //jwt apis rumman's code starts here
-    app.post("/jwt", async (req, res) => {
-      const user = req.body;
-      const token = jwt.sign(user, process.env.JWT_ACCESS_TOKEN, {
-        expiresIn: "5h",
-      });
-      res.send({ token });
-    });
-    //middleware
-    const verifyToken = (req, res, next) => {
-      // console.log("insideVeriyFy", req.headers.authorization);
-      if (!req.headers.authorization) {
-        return res.status(401).send({ message: "forbidden access" });
-      }
-      const token = req.headers.authorization.split(" ")[1];
-      jwt.verify(token, process.env.JWT_ACCESS_TOKEN, (err, decoded) => {
-        if (err) {
-          return res.status(401).send({ message: "forbidden access" });
-        }
-        req.decoded = decoded;
-        next();
-      });
-    };
+  
 
-    //jwt apis rumman's code ends here
-
-    app.get("/addProducts", async (req, res) => {
-      const productsCollection = client
-        .db("Auctoria")
-        .collection("addProducts");
-      const usersCollection = client.db("Auctoria").collection("users");
+  
 
       //jwt apis rumman's code starts here
       app.post("/jwt", async (req, res) => {
@@ -180,12 +153,6 @@ async function run() {
         }
       });
 
-      app.post("/addProducts", async (req, res) => {
-        const productData = req.body;
-        try {
-          if (productData.auctionStartDate) {
-            const startTime = new Date(productData.auctionStartDate);
-
             app.get("/users", async (req, res) => {
               try {
                 const users = await usersCollection.find().toArray();
@@ -197,18 +164,7 @@ async function run() {
               }
             });
 
-            const auctionEndTime = new Date(startTime);
-            auctionEndTime.setDate(auctionEndTime.getDate() + 7);
-
-            productData.auctionEndTime = auctionEndTime.toISOString();
-          }
-
-          const result = await productsCollection.insertOne(productData);
-          res.status(200).json(result);
-        } catch (err) {
-          res.status(500).json({ message: "Error adding product", error: err });
-        }
-      });
+      
 
       app.post("/addProducts", async (req, res) => {
         const productData = req.body;
@@ -228,8 +184,7 @@ async function run() {
           res.status(500).json({ message: "Error adding product", error: err });
         }
       });
-    });
-
+  
     app.post("/users", async (req, res) => {
       try {
         const { name, email, photoURL, uid } = req.body;
