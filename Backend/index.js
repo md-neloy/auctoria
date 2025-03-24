@@ -59,152 +59,132 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
     // Send a ping to confirm a successful connection
-    // await client.db("admin").command({ ping: 1 });
-    // console.log(
-    //   "Pinged your deployment. You successfully connected to new MongoDB!"
-    // );
+    await client.db("admin").command({ ping: 1 });
+    console.log(
+      "Pinged your deployment. You successfully connected to new MongoDB!"
+    );
 
     const productsCollection = client.db("Auctoria").collection("addProducts");
     const bidHistroyCollection = client.db("Auctoria").collection("bids");
+    const usersCollection = client.db("Auctoria").collection("users");
 
-    //jwt apis rumman's code starts here
-    app.post("/jwt", async (req, res) => {
-      const user = req.body;
-      const token = jwt.sign(user, process.env.JWT_ACCESS_TOKEN, {
-        expiresIn: "5h",
+  
+
+  
+
+      //jwt apis rumman's code starts here
+      app.post("/jwt", async (req, res) => {
+        const user = req.body;
+        const token = jwt.sign(user, process.env.JWT_ACCESS_TOKEN, {
+          expiresIn: "5h",
+        });
+        res.send({ token });
       });
-      res.send({ token });
-    });
-    //middleware
-    const verifyToken = (req, res, next) => {
-      // console.log("insideVeriyFy", req.headers.authorization);
-      if (!req.headers.authorization) {
-        return res.status(401).send({ message: "forbidden access" });
-      }
-      const token = req.headers.authorization.split(" ")[1];
-      jwt.verify(token, process.env.JWT_ACCESS_TOKEN, (err, decoded) => {
-        if (err) {
+      //middleware
+      const verifyToken = (req, res, next) => {
+        // console.log("insideVeriyFy", req.headers.authorization);
+        if (!req.headers.authorization) {
           return res.status(401).send({ message: "forbidden access" });
         }
-        req.decoded = decoded;
-        next();
-      });
-    };
+        const token = req.headers.authorization.split(" ")[1];
+        jwt.verify(token, process.env.JWT_ACCESS_TOKEN, (err, decoded) => {
+          if (err) {
+            return res.status(401).send({ message: "forbidden access" });
+          }
+          req.decoded = decoded;
+          next();
+        });
+      };
 
-    //jwt apis rumman's code ends here
+      //jwt apis rumman's code ends here
 
-    // app.get("/addProducts", async (req, res) => {
-    //   const productsCollection = client
-    //     .db("Auctoria")
-    //     .collection("addProducts");
-    //   const usersCollection = client.db("Auctoria").collection("users");
-    // });
-    //jwt apis rumman's code starts here
-
-    //jwt apis rumman's code ends here
-
-    app.get("/users", async (req, res) => {
-      try {
-        const users = await usersCollection.find().toArray();
-        res.status(200).json(users);
-      } catch (error) {
-        res.status(500).json({ message: "Error fetching users", error });
-      }
-    });
-
-    app.get("/addProducts", async (req, res) => {
-      const cursor = productsCollection.find();
-      const result = await cursor.toArray();
-      res.send(result);
-    });
-    app.get("/addProducts/:id", async (req, res) => {
-      const { id } = req.params;
-      const product = await productsCollection.findOne({
-        _id: new ObjectId(id),
-      });
-      if (!product) {
-        return res.status(404).json({ message: "Product not found" });
-      }
-
-      res.json(product);
-    });
-
-    app.get("/recentProducts", async (req, res) => {
-      try {
-        const cursor = productsCollection.find().sort({ _id: -1 }).limit(4);
+      app.get("/addProducts", async (req, res) => {
+        const cursor = productsCollection.find();
         const result = await cursor.toArray();
         res.send(result);
-      } catch (error) {
-        console.error(error);
-        res.status(500).send({ error: "Failed to fetch recent blogs" });
-      }
-    });
-
-    // app.get('/recentProducts', async (req, res) => {
-    //   try {
-    //     const cursor = productsCollection.find().sort({ _id: -1 }).limit(4);
-    //     const result = await cursor.toArray();
-    //     res.send(result);
-    //   } catch (error) {
-    //     console.error(error);
-    //     res.status(500).send({ error: "Failed to fetch recent blogs" });
-    //   }
-    // });
-
-    app.get("/featuredProducts", async (req, res) => {
-      try {
-        const cursor = productsCollection.aggregate([
-          { $match: { status: "Active" } },
-          { $addFields: { startingBidNum: { $toDouble: "$startingBid" } } },
-          { $sort: { startingBidNum: -1 } },
-        ]);
-
-        const result = await cursor.toArray();
-        res.send(result);
-      } catch (error) {
-        console.error(error);
-        res.status(500).send({ error: "Failed to fetch featured products" });
-      }
-    });
-
-    app.post("/addProducts", async (req, res) => {
-      const productData = req.body;
-      try {
-        if (productData.auctionStartDate) {
-          const startTime = new Date(productData.auctionStartDate);
-
-          const auctionEndTime = new Date(startTime);
-          auctionEndTime.setDate(auctionEndTime.getDate() + 7);
-
-          productData.auctionEndTime = auctionEndTime.toISOString();
+      });
+      app.get("/addProducts/:id", async (req, res) => {
+        const { id } = req.params;
+        const product = await productsCollection.findOne({
+          _id: new ObjectId(id),
+        });
+        if (!product) {
+          return res.status(404).json({ message: "Product not found" });
         }
 
-        const result = await productsCollection.insertOne(productData);
-        res.status(200).json(result);
-      } catch (err) {
-        res.status(500).json({ message: "Error adding product", error: err });
-      }
-    });
+        res.json(product);
+      });
 
-    app.post("/addProducts", async (req, res) => {
-      const productData = req.body;
-      try {
-        if (productData.auctionStartDate) {
-          const startTime = new Date(productData.auctionStartDate);
-          // Add 7 days (or your desired duration) to startTime for endTime
-          const auctionEndTime = new Date(startTime);
-          auctionEndTime.setDate(auctionEndTime.getDate() + 7); // Adding 7 days
-          // Update productData with calculated endTime
-          productData.auctionEndTime = auctionEndTime.toISOString(); // Convert to string format
+      app.get("/recentProducts", async (req, res) => {
+        try {
+          const cursor = productsCollection.find().sort({ _id: -1 }).limit(4);
+          const result = await cursor.toArray();
+          res.send(result);
+        } catch (error) {
+          console.error(error);
+          res.status(500).send({ error: "Failed to fetch recent blogs" });
         }
-        // Insert the updated product data into MongoDB
-        const result = await productsCollection.insertOne(productData);
-        res.status(200).json(result);
-      } catch (err) {
-        res.status(500).json({ message: "Error adding product", error: err });
-      }
-    });
+      });
 
+      // app.get('/recentProducts', async (req, res) => {
+      //   try {
+      //     const cursor = productsCollection.find().sort({ _id: -1 }).limit(4);
+      //     const result = await cursor.toArray();
+      //     res.send(result);
+      //   } catch (error) {
+      //     console.error(error);
+      //     res.status(500).send({ error: "Failed to fetch recent blogs" });
+      //   }
+      // });
+
+      app.get("/featuredProducts", async (req, res) => {
+        try {
+          const cursor = productsCollection.aggregate([
+            { $match: { status: "Active" } },
+            { $addFields: { startingBidNum: { $toDouble: "$startingBid" } } },
+            { $sort: { startingBidNum: -1 } },
+          ]);
+
+          const result = await cursor.toArray();
+          res.send(result);
+        } catch (error) {
+          console.error(error);
+          res.status(500).send({ error: "Failed to fetch featured products" });
+        }
+      });
+
+            app.get("/users", async (req, res) => {
+              try {
+                const users = await usersCollection.find().toArray();
+                res.status(200).json(users);
+              } catch (error) {
+                res
+                  .status(500)
+                  .json({ message: "Error fetching users", error });
+              }
+            });
+
+      
+
+      app.post("/addProducts", async (req, res) => {
+        const productData = req.body;
+        try {
+          if (productData.auctionStartDate) {
+            const startTime = new Date(productData.auctionStartDate);
+            // Add 7 days (or your desired duration) to startTime for endTime
+            const auctionEndTime = new Date(startTime);
+            auctionEndTime.setDate(auctionEndTime.getDate() + 7); // Adding 7 days
+            // Update productData with calculated endTime
+            productData.auctionEndTime = auctionEndTime.toISOString(); // Convert to string format
+          }
+          // Insert the updated product data into MongoDB
+          const result = await productsCollection.insertOne(productData);
+          res.status(200).json(result);
+        } catch (err) {
+          res.status(500).json({ message: "Error adding product", error: err });
+        }
+      });
+  
     app.post("/users", async (req, res) => {
       try {
         const { name, email, photoURL, uid } = req.body;
