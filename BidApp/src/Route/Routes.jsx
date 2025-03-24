@@ -10,8 +10,9 @@ import AddProduct from "../Pages/AddProduct";
 import PrivateRoutes from "../privateRoutes/PrivateRoutes";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Profile from "../components/HomeComponents/profile";
-import AllAuctions from "../Pages/AllAuctions";
-import AddProduct from "../Pages/AddProduct";
+
+
+
 
 
 
@@ -43,16 +44,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "/addProduct",
-        element:<AddProduct></AddProduct> ,
+        element: <AddProduct></AddProduct>,
       },
     ],
   },
   {
     path: "dashboard",
-    element: (
-      <PrivateRoutes>
-        <Dashboard />
-      </PrivateRoutes>
-    ),
+    element: <PrivateRoutes><Dashboard /></PrivateRoutes>,
+ 
+
+
   },
 ]);
