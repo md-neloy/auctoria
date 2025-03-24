@@ -47,7 +47,7 @@ const Navbar = () => {
           </NavLink>
 
         {user && (
-          <NavLink to="/dashboard" className="hover:text-blue-500">
+          <NavLink to="/dashboard/auctionChart" className="hover:text-blue-500">
             Dashboard
           </NavLink>
         )}
