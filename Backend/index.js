@@ -169,7 +169,83 @@ async function run() {
       }
     });
 
-    // Add a User
+      app.get("/featuredProducts", async (req, res) => {
+        try {
+          const cursor = productsCollection.aggregate([
+            { $match: { status: "Active" } },
+            { $addFields: { startingBidNum: { $toDouble: "$startingBid" } } },
+            { $sort: { startingBidNum: -1 } },
+          ]);
+
+          const result = await cursor.toArray();
+          res.send(result);
+        } catch (error) {
+          console.error(error);
+          res.status(500).send({ error: "Failed to fetch featured products" });
+        }
+      });
+
+            app.get("/users", async (req, res) => {
+              try {
+                const users = await usersCollection.find().toArray();
+                res.status(200).json(users);
+              } catch (error) {
+                res
+                  .status(500)
+                  .json({ message: "Error fetching users", error });
+              }
+        });
+
+      app.get("/wishlist/:userId", async (req, res) => {
+              const { userId } = req.params;
+            
+              try {
+                // Find the user by uid
+                const user = await usersCollection.findOne({ uid: userId });
+            
+                if (!user) {
+                  return res.status(404).json({ message: "User not found" });
+                }
+            
+                if (!user.wishlist || user.wishlist.length === 0) {
+                  return res.status(200).json({ message: "Wishlist is empty", wishlist: [] });
+                }
+            
+                // Fetch the full product details from productsCollection using wishlist product IDs
+                const wishlistedProducts = await productsCollection
+                  .find({ _id: { $in: user.wishlist.map(id => new ObjectId(id)) } })
+                  .toArray();
+            
+                res.status(200).json({ wishlist: wishlistedProducts });
+              } catch (error) {
+                console.error("Error fetching wishlist:", error);
+                res.status(500).json({ message: "Server error" });
+              }
+            });
+            
+            
+
+      
+
+      app.post("/addProducts", async (req, res) => {
+        const productData = req.body;
+        try {
+          if (productData.auctionStartDate) {
+            const startTime = new Date(productData.auctionStartDate);
+            // Add 7 days (or your desired duration) to startTime for endTime
+            const auctionEndTime = new Date(startTime);
+            auctionEndTime.setDate(auctionEndTime.getDate() + 7); // Adding 7 days
+            // Update productData with calculated endTime
+            productData.auctionEndTime = auctionEndTime.toISOString(); // Convert to string format
+          }
+          // Insert the updated product data into MongoDB
+          const result = await productsCollection.insertOne(productData);
+          res.status(200).json(result);
+        } catch (err) {
+          res.status(500).json({ message: "Error adding product", error: err });
+        }
+      });
+  
     app.post("/users", async (req, res) => {
       try {
         const { name, email, photoURL, uid } = req.body;
@@ -187,7 +263,36 @@ async function run() {
       }
     });
 
-    // Fetch Product by ID for Bidding
+    app.post("/addToWishlist", async (req, res) => {
+      const { productId, userId } = req.body;
+    
+      try {
+        // Find the user in the database (or create a wishlist if not exists)
+        const user = await usersCollection.findOne({ uid: userId });
+    
+        if (!user) {
+          return res.status(404).json({ message: "User not found" });
+        }
+    
+        // Add the product to the user's wishlist
+        const result = await usersCollection.updateOne(
+          { uid: userId },
+          { $addToSet: { wishlist: productId } } // Using $addToSet ensures no duplicates
+        );
+    
+        if (result.modifiedCount > 0) {
+          res.status(200).json({ message: "Product added to wishlist" });
+        } else {
+          res.status(400).json({ message: "Failed to add to wishlist" });
+        }
+      } catch (error) {
+        console.error("Error adding to wishlist:", error);
+        res.status(500).json({ message: "Server error" });
+      }
+    });
+    
+    
+
     app.get("/bidProduct/:id", async (req, res) => {
       const { id } = req.params;
       try {
