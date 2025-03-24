@@ -1,12 +1,37 @@
+<<<<<<< HEAD
+import { Outlet } from "react-router-dom";
+import Sidebar from "./sidebar/Sidebar";
+import { useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
+=======
 import { NavLink, Outlet } from "react-router-dom";
 
 import {  FaHospitalUser,  FaRegAddressBook, FaUsers, } from "react-icons/fa";
 import { FaHouseMedicalFlag } from "react-icons/fa6";
 
 import { GrHome } from "react-icons/gr";
+>>>>>>> ea43d65a66dabb8d2df81a1a82dad7d5973f0be3
 
 const Dashboard = () => {
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
   return (
+<<<<<<< HEAD
+    <div>
+      <div className="relative min-h-[calc(100vh-292px)] md:flex  bg-white">
+        <Sidebar />
+        <div className="flex-1 flex flex-col bg-gray-100">
+        <div className="p-4 bg-white border-b flex justify-between items-center">
+          <button className="lg:hidden text-gray-600 text-2xl" onClick={() => setSidebarOpen(!isSidebarOpen)}>{isSidebarOpen ? <FaTimes /> : <FaBars />}</button>
+          <h1 className="text-lg font-bold">Dashboard</h1>
+          
+        
+        </div >
+         <div className="p-4 overflow-auto flex-1">
+         <Outlet />
+         </div>
+        </div>
+      </div>
+=======
     <div className="">
       <div className="flex  w-full  h-full">
  
@@ -58,6 +83,7 @@ const Dashboard = () => {
    <Outlet />
  </div>
 </div>
+>>>>>>> ea43d65a66dabb8d2df81a1a82dad7d5973f0be3
     </div>
   );
 };
