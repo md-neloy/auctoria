@@ -5,12 +5,6 @@ import {  FaHospitalUser,  FaRegAddressBook, FaUsers, } from "react-icons/fa";
 import { RiAuctionLine } from "react-icons/ri";
 import { FaRegHeart } from "react-icons/fa";
 
-
-
-
-
-
-
 import { GrHome } from "react-icons/gr";
 import { MdOutlineAddToQueue } from "react-icons/md";
 import { FaChartBar } from "react-icons/fa";
