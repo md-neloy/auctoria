@@ -150,6 +150,14 @@ async function run() {
         res.status(500).json({ message: "Error adding product", error: err });
       }
     });
+    //show specific seller products
+    app.get("/addProducts/:email",async(req,res)=>{
+      const {email}=req.params;
+      const query={email:email};
+      const result=await productsCollection.find(query); 
+      res.send(result);
+    })
+    
 
     // Fetch Users
     app.get("/users", async (req, res) => {
