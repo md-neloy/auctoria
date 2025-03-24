@@ -11,7 +11,7 @@ const port = process.env.PORT || 5000;
 const server = http.createServer(app);
 
 const allowedOrigins = ["http://localhost:5173"];
-
+//middileware
 app.use(
   cors({
     origin: allowedOrigins,
