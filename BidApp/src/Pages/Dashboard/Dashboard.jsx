@@ -1,16 +1,27 @@
+
 import { NavLink, Outlet } from "react-router-dom";
 import { GrCircleInformation } from "react-icons/gr";
 import {  FaHospitalUser,  FaRegAddressBook, FaUsers, } from "react-icons/fa";
 import { RiAuctionLine } from "react-icons/ri";
 import { FaRegHeart } from "react-icons/fa";
+
+
+
+
+
+
+
 import { GrHome } from "react-icons/gr";
 import { MdOutlineAddToQueue } from "react-icons/md";
 import { FaChartBar } from "react-icons/fa";
 
 
 const Dashboard = () => {
+
+
   return (
-    <div className="">
+
+   
       <div className="flex  w-full  h-full">
  
  {/* Sidebar */}
@@ -62,8 +73,8 @@ const Dashboard = () => {
    <Outlet />
  </div>
 </div>
-    </div>
+
   );
 };
 
-export default Dashboard;
+export default Dashboard;
