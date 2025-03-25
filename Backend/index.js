@@ -120,6 +120,13 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+      //show specific seller products
+      app.get("/addProducts/:email",async(req,res)=>{
+        const {email}=req.params;
+        const query={email:email};
+        const result=await productsCollection.find(query).toArray(); 
+        res.send(result);
+      })
     app.get("/addProducts/:id", async (req, res) => {
       const { id } = req.params;
       const product = await productsCollection.findOne({
