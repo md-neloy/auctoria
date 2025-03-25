@@ -8,7 +8,10 @@ const http = require("http");
 const socketIo = require("socket.io");
 const { Server } = require("socket.io");
 const server = http.createServer(app);
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://bidapp-81c51.web.app/",
+];
 app.use(
   cors({
     origin: allowedOrigins,
