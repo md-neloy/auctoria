@@ -30,7 +30,7 @@ const Dashboard = () => {
         
         {/* Sellers Dashboard */}
         <ul className="menu">
-          <h2 className="my-5 font-bold text-xl dark:text-[#A294F9] text-[#4635B1]">Sellers Dashboard</h2>
+          <h2 className="my-6 font-bold text-xl dark:text-[#A294F9] text-[#4635B1]">Sellers Dashboard</h2>
           <li><NavLink to="/addProduct"><FaRegAddressBook />Add Product</NavLink></li>
           <li><NavLink to="/dashboard/updatedBidInfo"><FaRegAddressBook />Update Bid Information</NavLink></li>
         </ul>
