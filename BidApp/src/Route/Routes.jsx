@@ -4,18 +4,25 @@ import Login from "../Pages/Authentication/Login";
 import Register from "../Pages/Authentication/Register";
 import Home from "../Pages/HomePage/Home";
 
-import AllAuctions from "../Pages/AllAuctions";
-import AddProduct from "../Pages/AddProduct";
+
+
 
 import PrivateRoutes from "../privateRoutes/PrivateRoutes";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import AddProduct from "../Pages/AddProduct";
+
+import AllAuctions from "../Pages/AllAuctions";
 
 import AuctionChart from "../Pages/Dashboard/AuctionChart";
 
 import Profile from "../components/HomeComponents/profile";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
 import Bid from "../Pages/BidTask/Bid";
+
+import WishList from "../Pages/WishList";
+
 import UpdateBid from "../components/sellerComponents/updateBid";
+
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +42,7 @@ export const router = createBrowserRouter([
         element: <Register />,
       },
       {
+
         path: "/profile",
         element: <Profile></Profile>,
       },
@@ -50,7 +58,13 @@ export const router = createBrowserRouter([
         path: "/bid/:id",
         element: <Bid />,
       },
-    ],
+   
+      {
+        path:"allAuctions",
+        element:<AllAuctions></AllAuctions>
+      }
+
+    ]
   },
   {
     path: "dashboard",
@@ -69,8 +83,18 @@ export const router = createBrowserRouter([
         element: <ManageUsers></ManageUsers>,
       },
       {
+
+        path: "wishList",
+        element: <WishList></WishList>
+      },
+      {
+        path:"profile",
+        element:<Profile></Profile>
+      },
+      {
         path:"updatedBidInfo",
         element:<UpdateBid></UpdateBid>
+
       }
     ],
   },
