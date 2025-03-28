@@ -4,13 +4,16 @@ const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 const port = process.env.PORT || 5000;
 const server = http.createServer(app);
 
-// Allowed Origins for CORS
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://bidapp-81c51.web.app",
+];
 
 app.use(
   cors({
@@ -21,7 +24,6 @@ app.use(
 );
 app.use(express.json());
 
-// Initialize Socket.io
 const io = new Server(server, {
   cors: {
     origin: allowedOrigins,
@@ -33,10 +35,16 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   console.log("A user connected:", socket.id);
-  socket.on("disconnect", (reason) => console.warn("User disconnected:", reason));
+
+  socket.on("disconnect", (reason) => {
+    console.warn("User disconnected:", reason);
+  });
+
+  socket.on("connect_error", (error) => {
+    console.error("❌ Connection Error:", error);
+  });
 });
 
-// MongoDB Connection
 const uri = `mongodb+srv://auctoria:${process.env.DB_PASS}@cluster0.t199j.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 const client = new MongoClient(uri, {
   serverApi: { version: ServerApiVersion.v1, strict: true, deprecationErrors: true },
@@ -48,18 +56,15 @@ async function run() {
     const productsCollection = db.collection("addProducts");
     const usersCollection = db.collection("users");
 
-    
+    // 🛠 Add Product API
     app.post("/addProducts", async (req, res) => {
       const productData = req.body;
-
       try {
         if (productData.auctionStartDate) {
           const startTime = new Date(productData.auctionStartDate);
-          const auctionEndTime = new Date(startTime);
-          auctionEndTime.setDate(auctionEndTime.getDate() + 7);
-          productData.auctionEndTime = auctionEndTime.toISOString();
+          startTime.setDate(startTime.getDate() + 7);
+          productData.auctionEndTime = startTime.toISOString();
         }
-
         const result = await productsCollection.insertOne(productData);
         res.status(201).json({ message: "Product added successfully", result });
       } catch (err) {
@@ -67,13 +72,13 @@ async function run() {
       }
     });
 
-   
+    // 🛠 Get All Products
     app.get("/addProducts", async (req, res) => {
       const result = await productsCollection.find().toArray();
       res.json(result);
     });
 
-   
+    // 🛠 Get Single Product by ID
     app.get("/addProducts/:id", async (req, res) => {
       const { id } = req.params;
       try {
@@ -85,7 +90,7 @@ async function run() {
       }
     });
 
-    
+    // 🛠 Get Featured Products
     app.get("/featuredProducts", async (req, res) => {
       try {
         const result = await productsCollection.find({ status: "Active" }).sort({ startingBid: -1 }).toArray();
@@ -95,24 +100,7 @@ async function run() {
       }
     });
 
-    
-    app.get("/addProducts/:email", async (req, res) => {
-      const { email } = req.params;
-      const result = await productsCollection.find({ email }).toArray();
-      res.json(result);
-    });
-
-    // 👤 Fetch All Users
-    app.get("/users", async (req, res) => {
-      try {
-        const users = await usersCollection.find().toArray();
-        res.json(users);
-      } catch (error) {
-        res.status(500).json({ message: "Error fetching users", error });
-      }
-    });
-
-    
+    // 🛠 Get User Wishlist
     app.get("/wishlist/:userId", async (req, res) => {
       const { userId } = req.params;
       try {
@@ -123,21 +111,28 @@ async function run() {
           return res.json({ message: "Wishlist is empty", wishlist: [] });
         }
 
-        const wishListedProducts = await productsCollection.find({ _id: { $in: user.wishlist.map(id => new ObjectId(id)) } }).toArray();
+        const wishListedProducts = await productsCollection.find({
+          _id: { $in: user.wishlist.map(id => new ObjectId(id)) },
+        }).toArray();
+        
         res.json({ wishlist: wishListedProducts });
       } catch (error) {
         res.status(500).json({ message: "Server error" });
       }
     });
 
-   
+    // 🛠 Add to Wishlist
     app.post("/addToWishlist", async (req, res) => {
       const { productId, userId } = req.body;
       try {
         const user = await usersCollection.findOne({ uid: userId });
         if (!user) return res.status(404).json({ message: "User not found" });
 
-        const result = await usersCollection.updateOne({ uid: userId }, { $addToSet: { wishlist: productId } });
+        const result = await usersCollection.updateOne(
+          { uid: userId },
+          { $addToSet: { wishlist: productId } }
+        );
+        
         if (result.modifiedCount > 0) {
           res.json({ message: "Product added to wishlist" });
         } else {
@@ -148,28 +143,61 @@ async function run() {
       }
     });
 
-    // 💰 Place a Bid on a Product
-    app.post("/bid/:id", async (req, res) => {
-      const { id } = req.params;
-      const { amount, user } = req.body;
-      try {
-        if (!ObjectId.isValid(id)) return res.status(400).json({ error: "Invalid product ID format" });
+    // 🛠 JWT Authentication
+    app.post("/jwt", async (req, res) => {
+      const user = req.body;
+      const token = jwt.sign(user, process.env.JWT_ACCESS_TOKEN, { expiresIn: "5h" });
+      res.send({ token });
+    });
 
-        const result = await productsCollection.updateOne({ _id: new ObjectId(id) }, { $push: { bids: { amount, user, time: new Date() } } });
-        io.emit("newBid", { id, amount, user });
-        res.json(result);
+    const verifyToken = (req, res, next) => {
+      if (!req.headers.authorization) {
+        return res.status(401).send({ message: "forbidden access" });
+      }
+      const token = req.headers.authorization.split(" ")[1];
+      jwt.verify(token, process.env.JWT_ACCESS_TOKEN, (err, decoded) => {
+        if (err) {
+          return res.status(401).send({ message: "forbidden access" });
+        }
+        req.decoded = decoded;
+        next();
+      });
+    };
+
+    // 🛠 Get All Users
+    app.get("/users", async (req, res) => {
+      try {
+        const users = await usersCollection.find().toArray();
+        res.json(users);
       } catch (error) {
-        res.status(500).json({ error: "Failed to place bid" });
+        res.status(500).json({ message: "Error fetching users", error });
       }
     });
 
-  } catch (error) {
-    console.error("❌ Database Connection Error:", error);
+    // 🛠 Register a New User
+    app.post("/users", async (req, res) => {
+      try {
+        const { name, email, photoURL, uid } = req.body;
+        const existingUser = await usersCollection.findOne({ email });
+        if (existingUser) {
+          return res.status(400).json({ message: "User already exists" });
+        }
+        const newUser = { name, email, photoURL, uid, createdAt: new Date() };
+        const result = await usersCollection.insertOne(newUser);
+        res.status(201).json({ message: "User registered successfully", user: result });
+      } catch (error) {
+        res.status(500).json({ message: "Server error" });
+      }
+    });
+
+  } finally {
+    // Not closing client here so the server keeps running
   }
 }
 
 run().catch(console.dir);
 
+// 🛠 Start the Server
 server.listen(port, () => {
-  console.log(` Server running on port: ${port}`);
+  console.log(`✅ Server is running on port ${port}`);
 });

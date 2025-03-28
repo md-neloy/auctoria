@@ -18,7 +18,11 @@ import AuctionChart from "../Pages/Dashboard/AuctionChart";
 import Profile from "../components/HomeComponents/profile";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
 import Bid from "../Pages/BidTask/Bid";
+
 import WishList from "../Pages/WishList";
+
+import UpdateBid from "../components/sellerComponents/updateBid";
+
 
 export const router = createBrowserRouter([
   {
@@ -79,12 +83,18 @@ export const router = createBrowserRouter([
         element: <ManageUsers></ManageUsers>,
       },
       {
+
         path: "wishList",
         element: <WishList></WishList>
       },
       {
         path:"profile",
         element:<Profile></Profile>
+      },
+      {
+        path:"updatedBidInfo",
+        element:<UpdateBid></UpdateBid>
+
       }
     ],
   },
