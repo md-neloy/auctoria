@@ -8,7 +8,10 @@ import Partners from "../../components/HomeComponents/Partners";
 import Question from "../../components/HomeComponents/Question";
 import LatestAuctions from "../../components/HomeComponents/latestAuctions";
 import FeaturedProducts from "./FeaturedProducts";
+
 import GetInKnow from "./GetInKnow";
+
+
 
 const Home = () => {
   return (
@@ -18,7 +21,10 @@ const Home = () => {
   <LatestAuctions></LatestAuctions>
       <Question />
       <FeaturedProducts></FeaturedProducts>
+
       <GetInKnow></GetInKnow>
+
+
       <MeetCards />
       <Partners />
       <BiddingMadness />

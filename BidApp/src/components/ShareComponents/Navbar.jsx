@@ -39,9 +39,15 @@ const Navbar = () => {
           Home
         </NavLink>
 
+
         <NavLink to="/allAuctions" className="hover:text-blue-500">
-          View All Auctions
+          View All Auctions</NavLink>
+        
+
+        <NavLink to="/addProduct" className="hover:text-blue-500">
+          Add Product
         </NavLink>
+        
         <NavLink to="/addProduct" className="hover:text-blue-500">
           Add Product
           </NavLink>
