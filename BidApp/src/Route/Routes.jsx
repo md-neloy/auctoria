@@ -63,10 +63,10 @@ export const router = createBrowserRouter([
         path: "auctionChart",
         element: <AuctionChart></AuctionChart>,
       },
-      {
-        path: "manageUsers",
-        element: <ManageUsers></ManageUsers>,
-      },
+      // {
+      //   path: "manageUsers",
+      //   element: <ManageUsers></ManageUsers>,
+      // },
     ],
   },
 ]);
